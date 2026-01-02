@@ -71,8 +71,29 @@
     .reveal{opacity:0;transform:translateY(10px);animation:reveal .7s forwards;}
     .reveal.delay{animation-delay:.12s}
     @keyframes reveal{to{opacity:1;transform:none}}
+
+    .snow{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:9999;
+      overflow:hidden;
+    }
+    .snowflake{
+      position:absolute;
+      top:-10px;
+      color:#fff;
+      user-select:none;
+      animation:fall linear infinite, sway ease-in-out infinite;
+    }
+    @keyframes fall{to{transform:translateY(110vh)}}
+    @keyframes sway{0%,100%{margin-left:0}50%{margin-left:40px}}
+
   </style>
 </head>
+
+  <div class="snow" id="snow"></div>
+  
 <body>
   <div class="site">
     <header>
@@ -255,9 +276,24 @@ Böyük Vətən müharibəsinə gedənlərdən 23 nəfər şəhid olmuş və itk
       })
     },{threshold:.12});
     reveals.forEach(r=>io.observe(r));
+
+    // SNOW GENERATOR
+    const snow=document.getElementById("snow");
+  for(let i=0;i<90;i++){
+    const s=document.createElement("div");
+    s.className="snowflake";
+    s.innerHTML="❄";
+    s.style.left=Math.random()*100+"vw";
+    s.style.fontSize=Math.random()*12+10+"px";
+    s.style.opacity=Math.random();
+    s.style.animationDuration=(Math.random()*5+6)+"s,"+(Math.random()*3+3)+"s";
+    s.style.animationDelay=Math.random()*5+"s";
+    snow.appendChild(s);
+  }
   </script>
 </body>
 </html>
+
 
 
 
